@@ -7,34 +7,32 @@ screen_height = 1000
 
 screen = pygame.display.set_mode((screen_width, screen_height))
 
-player = pygame.Rect((300, 250, 50, 50))
+playerimg = pygame.image.load("src/racecar.png")
+
+player = playerimg.get_rect(center=(300, 250))
 player_speed = 1
-# playerimg = pygame.image.load("src/racecar.png")
 
-# def player (x, y):
-#     gameDisplay.blit(playerimg, (x,y))
-
-# x = ()
 
 
 run = True
 while run:
 
-    screen.fill((0, 0, 0))
-    pygame.draw.rect(screen, (255, 0, 0), player)
+    screen.fill((255, 255, 255))
+    screen.blit(playerimg, player)
+    #pygame.draw.rect(screen, (255, 0, 0), player)
 
     key = pygame.key.get_pressed()
-    if key[pygame.K_w] == True:
+    if key[pygame.K_UP] == True:
         player.y -= player_speed
         # print('left')
 
-    elif key[pygame.K_s] == True:
+    elif key[pygame.K_DOWN] == True:
         player.y += player_speed
 
-    if key[pygame.K_a] == True:
+    if key[pygame.K_LEFT] == True:
         player.x -= player_speed
 
-    elif key[pygame.K_d] == True:
+    elif key[pygame.K_RIGHT] == True:
         player.x += player_speed
 
     player.x = max(0, min(player.x, screen_width - player.width))
