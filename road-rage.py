@@ -5,6 +5,8 @@ import random
 
 pygame.init()
 
+# crash_sound = pygame.mixer.Sound("/Users/bobby/Downloads/Tokyo_Drift_Fast__Furious (1).mp3")
+# pygame.mixer.music.load("/Users/bobby/Downloads/Car_Crash_Sound_Effect.mp3")
 display_width = 800
 display_height = 600
 
@@ -37,8 +39,8 @@ background_img = background_photos[current_photo_index]
 background_img = pygame.transform.scale(background_img, (display_width, display_height))
 
 playerimg = pygame.image.load("src/cars/4.png")
-player_width = 160
-player_height = 160
+player_width = 250
+player_height = 200
 playerimg = pygame.transform.scale(playerimg, (player_width, player_height))
 
 # player = playerimg.get_rect(center=(500, 500))
@@ -59,6 +61,9 @@ heart_img = pygame.image.load("src/Pixel Heart Animation GIFs & Spritesheets, 32
 heart_img = pygame.transform.scale(heart_img, (30, 30))
 hearts = 3
 
+crash_sound = pygame.mixer.Sound("/Users/bobby/Downloads/Car_Crash_Sound_Effect.mp3")
+pygame.mixer.music.load("/Users/bobby/Downloads/Tokyo_Drift_Fast__Furious.mp3")
+
 def enemys(enemyx, enemyy, enemyw, enemyh):
     gameDisplay.blit(bomb_img, (enemyx, enemyy, enemyw, enemyh))
 
@@ -73,6 +78,7 @@ def enemys_dodged(count):
 
 def crash():
     pygame.message_display("You Crashed") 
+    pygame.mixer.music.stop(crash_sound)
 
 
 def button(msg, x, y, w, h, ic, ac, action=None):
@@ -106,6 +112,7 @@ def message_display(text):
     pygame.time.wait(2000)
 
 def crash():
+
     global hearts
     hearts -= 1
     # Flash the colors for a certain duration
@@ -129,6 +136,8 @@ def crash():
         game_loop()
 
     
+    pygame.mixer.music.stop()
+    # pygame.mixer.Sound.play(crash_sound) 
     
     largeText = pygame.font.SysFont("comicsansms", 115)
     TextSurf, TextRect = text_objects("YOU DIED", largeText)
@@ -138,6 +147,8 @@ def crash():
     
 
     game_loop()
+
+   
 
     game_intro()
     intro = True
@@ -186,6 +197,9 @@ def unpause():
     pause = False
 
 def paused():
+
+    pygame.mixer.music.pause()
+
     largeText = pygame.font.SysFont("comicsansms", 115)
     TextSurf, TextRect = text_objects("Paused", largeText)
     TextRect.center = ((display_width / 2), (display_height / 2))
@@ -229,6 +243,8 @@ def game_intro():
 
 def game_loop():
     global pause, hearts
+
+    pygame.mixer.music.play(-1)
 
     x = (display_width * 0.45)
     y = (display_height * 0.6)
