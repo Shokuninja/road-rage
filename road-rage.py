@@ -1,6 +1,7 @@
 import pygame
 import time
 import random
+import imageio
 
 
 pygame.init()
@@ -13,6 +14,14 @@ gameDisplay = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption("Road Rage")
 
 clock = pygame.time.Clock()
+
+#FOR BACKGROUND GIF
+#background_gif_path = 'src/background/Mission_bombs.gif'
+#background_gif = imageio.get_reader(background_gif_path)
+#background_gif_frames = [
+    #pygame.transform.flip(pygame.transform.scale(pygame.transform.rotate(pygame.surfarray.make_surface(frame), 90), (display_width,display_height )), False, True) for frame in background_gif
+#]
+#frame_index = 0
 
 background_photos = [
     pygame.image.load("src/background/18.png"),
@@ -60,6 +69,7 @@ hearts = 3
 crash_sound = pygame.mixer.Sound("src/Music/Car_Crash_Sound_Effect.mp3")
 pygame.mixer.music.load("src/Music/Tokyo_Drift_Fast__Furious.mp3")
 
+dodged = 0
 highest_dodged = 0
 
 def enemys(enemyx, enemyy, enemyw, enemyh):
@@ -145,7 +155,7 @@ def crash():
 
     
 
-    game_loop()
+    #game_loop()
 
    
 
@@ -158,8 +168,9 @@ def crash():
                 pygame.quit()
                 quit()
 
-        gameDisplay.blit(background_img, (0, 0))
-
+       # gameDisplay.blit(background_img, (0, 0))
+        gameDisplay.blit(background_gif_frames[frame_index], (0, 0))
+        frame_index = (frame_index + 1) % len(background_gif_frames)
 
     while True:
         for event in pygame.event.get():
@@ -229,10 +240,10 @@ def game_intro():
 
         gameDisplay.blit(background_img, (0, 0))  # Display the background image
 
-        largeText = pygame.font.SysFont("comicsansms", 115)
-        TextSurf, TextRect = text_objects("Road Rage", largeText)
-        TextRect.center = ((display_width / 2), (display_height / 2))
-        gameDisplay.blit(TextSurf, TextRect)
+        largeText = pygame.font.SysFont(None, 115)
+        text_surf, text_rect = text_objects("Road Rage", largeText)
+        text_rect.center = ((display_width / 2), (display_height / 2))
+        gameDisplay.blit(text_surf, text_rect)
 
         button("GO!", 150, 450, 100, 50, green, bright_green, game_loop)
         button("Quit", 550, 450, 100, 50, red, bright_red, quitgame)
@@ -305,6 +316,9 @@ def game_loop():
 
         # Checks if car has gone off screen
         if x > display_width - player_width or x < -200:
+            if dodged > highest_dodged:
+                highest_dodged = dodged
+            message_display(f"Highest Dodged: {highest_dodged}")
             crash()
             enemys(enemy_current_position_x, enemy_current_position_y, enemy_width, enemy_height)
 
@@ -313,6 +327,7 @@ def game_loop():
             enemy_current_position_x = random.randrange(0, display_width)
             dodged += 1
             enemy_speed += 1
+
 
             
         COLLISION_CHECK_X_GOING_LEFT = abs(x - enemy_current_position_x) <= 10
@@ -336,12 +351,17 @@ def game_loop():
         pygame.display.update()
         clock.tick(60)
 
+#message_display(f"Highest Dodged: {highest_dodged}")
+
+
 # Updated image paths and sizes 
 heart_img = pygame.image.load("src/Pixel Heart Animation GIFs & Spritesheets, 32x32 and 16x16/Pixel Heart Animation 32x32.gif")
 heart_img = pygame.transform.scale(heart_img, (30, 30))
 
 message_display(f"Highest Dodged: {highest_dodged}")
+
 game_intro()
+
 game_loop()
 pygame.quit()
 quit()
