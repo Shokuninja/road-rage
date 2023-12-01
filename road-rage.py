@@ -29,16 +29,16 @@ background_img = pygame.transform.scale(background_img, (display_width, display_
 
 bomb_img = pygame.image.load("src/cars/car_sport_01.svg")
 bomb_width = 150
-bomb_height = 200
+bomb_height = 150
 bomb_img = pygame.transform.scale(bomb_img, (bomb_width, bomb_height))
 
 current_photo_index = 0
 background_img = background_photos[current_photo_index]
 background_img = pygame.transform.scale(background_img, (display_width, display_height))
 
-playerimg = pygame.image.load("src/cars/4.png")
+playerimg = pygame.image.load("src/cars/cars_race1.png")
 player_width = 250
-player_height = 200
+player_height = 250
 playerimg = pygame.transform.scale(playerimg, (player_width, player_height))
 
 # player = playerimg.get_rect(center=(500, 500))
@@ -325,10 +325,7 @@ def game_loop():
         COLLISION_CHECK_X_GOING_RIGHT = abs(enemy_current_position_x - x) <= 40
         COLLISION_CHECK_X = COLLISION_CHECK_X_GOING_LEFT or COLLISION_CHECK_X_GOING_RIGHT
         COLLISION_CHECK_Y = abs(y - enemy_current_position_y) <= 85
-        # playerrect, bombrect = playerimg.get_rect(), bomb_img.get_rect()
-        # print(playerrect.width, playerrect.height)
-        # print(bombrect.width, bombrect.height)
-        # if playerrect.colliderect(bombrect):
+        
         if COLLISION_CHECK_X and COLLISION_CHECK_Y:
             print(f"Collision detected.")
             print(f"\n\tCAR POSITION: ({x}, {y})\n\tENEMY POSITION: ({enemy_current_position_x}, {enemy_current_position_y})")

@@ -45,9 +45,9 @@ python road_rage_game.py
 
 ## Credits
 
-- Game developed by [Your Name]
-- Background images from [source]
-- Car images from [source]
-- Sound effects from [source]
+- Game developed by Isamar, Tom and Lohan
+- Background images from canva.com designed by unknown
+- Car images from canva.com designed by Isamar
+- Sound effects from apple music
 
-Enjoy playing Road Rage! If you encounter any issues or have suggestions for improvement, feel free to [open an issue](https://github.com/your-username/road-rage-game/issues). Have fun! 🚗💨
+Enjoy playing Road Rage! If you encounter any issues or have suggestions for improvement. Have fun! 🚗💨
