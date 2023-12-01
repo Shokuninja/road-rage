@@ -21,8 +21,6 @@ clock = pygame.time.Clock()
 
 background_photos = [
     pygame.image.load("src/background/18.png"),
-    pygame.image.load("src/background/19.png"),
-    pygame.image.load("src/background/20.png"),
 ]
 
 current_photo_index = 0
