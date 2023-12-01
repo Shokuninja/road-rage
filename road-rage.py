@@ -110,10 +110,10 @@ def text_objects(text, font):
     textSurface = font.render(text, True, black)
     return textSurface, textSurface.get_rect()
 
-def message_display(text):
+def message_display(text,h_offset=0):
     large_text = pygame.font.SysFont(None, 115)
     text_surf, text_rect = text_objects(text, large_text)
-    text_rect.center = ((display_width / 2), (display_height / 2))
+    text_rect.center = ((display_width / 2), h_offset+(display_height / 2))
     gameDisplay.blit(text_surf, text_rect)
 
     pygame.display.update()
@@ -138,10 +138,11 @@ def crash():
         clock.tick(10)
 
     if hearts <= 0:
-        message_display("Wrecked!")
+        message_display("Wrecked!",0)
+        message_display(f"Highest Dodged: {highest_dodged}",h_offset=7)
         game_intro()
     else:
-        message_display("Struck!",)
+        message_display("Struck!")
         game_loop()
         
     
@@ -253,6 +254,7 @@ def game_intro():
 
 def game_loop():
     global pause, hearts, highest_dodged
+    
 
     pygame.mixer.music.play(-1)
 
@@ -318,7 +320,7 @@ def game_loop():
         if x > display_width - player_width or x < -200:
             if dodged > highest_dodged:
                 highest_dodged = dodged
-            message_display(f"Highest Dodged: {highest_dodged}")
+            
             crash()
             enemys(enemy_current_position_x, enemy_current_position_y, enemy_width, enemy_height)
 
@@ -326,7 +328,10 @@ def game_loop():
             enemy_current_position_y = 0 - enemy_height
             enemy_current_position_x = random.randrange(0, display_width)
             dodged += 1
-            enemy_speed += 1
+            if dodged > highest_dodged:
+               highest_dodged = dodged
+
+
 
 
             
@@ -358,10 +363,11 @@ def game_loop():
 heart_img = pygame.image.load("src/Pixel Heart Animation GIFs & Spritesheets, 32x32 and 16x16/Pixel Heart Animation 32x32.gif")
 heart_img = pygame.transform.scale(heart_img, (30, 30))
 
-message_display(f"Highest Dodged: {highest_dodged}")
+
 
 game_intro()
 
 game_loop()
+
 pygame.quit()
 quit()
