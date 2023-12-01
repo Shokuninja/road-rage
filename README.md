@@ -1,3 +1,8 @@
+
+![Road Rage Game](roadragegame.png)
+
+
+
 # Road Rage Game
 
 Welcome to Road Rage, a simple pygame-based car dodging game! Dodge the incoming cars and see how many you can avoid before crashing.

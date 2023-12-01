@@ -5,8 +5,7 @@ import random
 
 pygame.init()
 
-# crash_sound = pygame.mixer.Sound("/Users/bobby/Downloads/Tokyo_Drift_Fast__Furious (1).mp3")
-# pygame.mixer.music.load("/Users/bobby/Downloads/Car_Crash_Sound_Effect.mp3")
+
 display_width = 800
 display_height = 600
 
@@ -14,10 +13,6 @@ gameDisplay = pygame.display.set_mode((display_width, display_height))
 pygame.display.set_caption("Road Rage")
 
 clock = pygame.time.Clock()
-
-# carImg = pygame.image.load("src/cars/9.png")
-# car_width = 73
-# car_height = 200
 
 background_photos = [
     pygame.image.load("src/background/18.png"),
@@ -27,9 +22,9 @@ current_photo_index = 0
 background_img = background_photos[current_photo_index]
 background_img = pygame.transform.scale(background_img, (display_width, display_height))
 
-bomb_img = pygame.image.load("src/cars/car_sport_01.svg")
-bomb_width = 150
-bomb_height = 150
+bomb_img = pygame.image.load("src/cars/blackcarflipped.png")
+bomb_width = 250
+bomb_height = 250
 bomb_img = pygame.transform.scale(bomb_img, (bomb_width, bomb_height))
 
 current_photo_index = 0
@@ -41,7 +36,10 @@ player_width = 250
 player_height = 250
 playerimg = pygame.transform.scale(playerimg, (player_width, player_height))
 
-# player = playerimg.get_rect(center=(500, 500))
+player1img = pygame.image.load("src/cars/bluedroptop.png")
+player1_width = 250
+player1_height = 250
+player1img = pygame.transform.scale(player1img, (player1_width, player1_height))
 
 
 
@@ -62,12 +60,15 @@ hearts = 3
 crash_sound = pygame.mixer.Sound("/Users/bobby/Downloads/Car_Crash_Sound_Effect.mp3")
 pygame.mixer.music.load("/Users/bobby/Downloads/Tokyo_Drift_Fast__Furious.mp3")
 
+highest_dodged = 0
+
 def enemys(enemyx, enemyy, enemyw, enemyh):
     gameDisplay.blit(bomb_img, (enemyx, enemyy, enemyw, enemyh))
 
 
 def car(x,y):
-    gameDisplay.blit(playerimg, (x, y))
+    gameDisplay.blit(playerimg,(x, y))
+    gameDisplay.blit(player1img,(x, y))
 
 def enemys_dodged(count):
     font = pygame.font.SysFont(None, 25)
@@ -127,12 +128,12 @@ def crash():
         clock.tick(10)
 
     if hearts <= 0:
-        message_display("You're DEAD")
+        message_display("Wrecked!")
         game_intro()
     else:
-        message_display("You're Injured")
+        message_display("Struck!",)
         game_loop()
-
+        
     
     pygame.mixer.music.stop()
     # pygame.mixer.Sound.play(crash_sound) 
@@ -240,7 +241,7 @@ def game_intro():
         clock.tick(15)
 
 def game_loop():
-    global pause, hearts
+    global pause, hearts, highest_dodged
 
     pygame.mixer.music.play(-1)
 
@@ -313,14 +314,7 @@ def game_loop():
             dodged += 1
             enemy_speed += 1
 
-            # TODO: Increase sprite size while increasing enemy width.
-            # enemy_width += (dodged * 1.2)
-
-        # Checks if car has collided with enemy.
-        # HORIZONTAL_CHECKS = x > enemy_startx and x < enemy_startx + enemy_width or x + car_width > enemy_startx and x + car_width < enemy_startx + enemy_width
-        # VERTICAL_CHECKS = y > enemy_starty and y < enemy_starty + enemy_height
-        # COLLISION_CHECKS_X = x > enemy_current_position_x and x < enemy_current_position_x + enemy_width or x + car_width > enemy_current_position_x and x + car_width < enemy_current_position_x + enemy_width
-        # COLLISION_CHECKS_Y = y > enemy_current_position_y and y < enemy_current_position_y + enemy_height
+            
         COLLISION_CHECK_X_GOING_LEFT = abs(x - enemy_current_position_x) <= 10
         COLLISION_CHECK_X_GOING_RIGHT = abs(enemy_current_position_x - x) <= 40
         COLLISION_CHECK_X = COLLISION_CHECK_X_GOING_LEFT or COLLISION_CHECK_X_GOING_RIGHT
@@ -335,17 +329,7 @@ def game_loop():
             print(f"Respawning enemy.")
             enemys(enemy_startx, enemy_starty, enemy_width, enemy_height)
 
-        # if COLLISION_CHECKS_X:
-        #     # TODO: Ensure enemy car image is drawn right. Right now,
-        #     #       enemy image is a little to the left of the "hitbox" 
-        #     #       or area that collides with the player. 
-        #     print('y crossover')
-
-        #     if COLLISION_CHECKS_Y:
-        #         print('x crossover')
-        #         crash()
-        #         enemys(enemy_startx, enemy_starty, enemy_width, enemy_height)
-
+    
 
         for i in range(hearts):
             gameDisplay.blit(heart_img, (display_width - 30 * (i + 1), 10))
@@ -356,7 +340,7 @@ def game_loop():
 heart_img = pygame.image.load("src/Pixel Heart Animation GIFs & Spritesheets, 32x32 and 16x16/Pixel Heart Animation 32x32.gif")
 heart_img = pygame.transform.scale(heart_img, (30, 30))
 
-
+message_display(f"Highest Dodged: {highest_dodged}")
 game_intro()
 game_loop()
 pygame.quit()
