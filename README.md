@@ -5,7 +5,9 @@
 
 # Road Rage Game
 
-Welcome to Road Rage, a simple pygame-based car dodging game! Dodge the incoming cars and see how many you can avoid before crashing.
+Welcome to Road Rage, a simple pygame-based car dodging game! Dodge the incoming cars and see how many you can avoid before crashing. 
+
+Embark on a journey through the intensity of road rage, where the urban streets echo with the rush of speeding vehicles and the occasional unexpected collision WHACK!!. If you've ever felt the adrenaline of dodging cars in a city, this game is for you. Get ready for a thrilling experience and showcase your mastery of the road! ZOOM ZOOOM ZOOOOOOOM! Its time to Start the game. Good Luck!
 
 ## How to Play
 

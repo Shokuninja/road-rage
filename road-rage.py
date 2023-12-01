@@ -22,7 +22,7 @@ current_photo_index = 0
 background_img = background_photos[current_photo_index]
 background_img = pygame.transform.scale(background_img, (display_width, display_height))
 
-bomb_img = pygame.image.load("src/cars/blackcarflipped.png")
+bomb_img = pygame.image.load("src/cars/graycarflipped.png")
 bomb_width = 250
 bomb_height = 250
 bomb_img = pygame.transform.scale(bomb_img, (bomb_width, bomb_height))
