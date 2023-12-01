@@ -58,7 +58,7 @@ heart_img = pygame.transform.scale(heart_img, (30, 30))
 hearts = 3
 
 crash_sound = pygame.mixer.Sound("/Users/bobby/Downloads/Car_Crash_Sound_Effect.mp3")
-pygame.mixer.music.load("/Users/bobby/Downloads/Tokyo_Drift_Fast__Furious.mp3")
+pygame.mixer.music.load("src/Music/Tokyo_Drift_Fast__Furious.mp3")
 
 highest_dodged = 0
 
